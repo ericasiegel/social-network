@@ -16,27 +16,27 @@ const thoughtController = {
     },
     // get one thought
     getThoughtById({ params }, res) {
-        Thought.findOne({ _id: params.id })
-        .then(dbUserData => {
-            // If no pizza is found, send 404
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with this id!' });
-                return;
-            }
-            res.json(dbUserData);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(400).json(err);
-        });
+        Thought.findOne({ _id: params.thoughtId })
+            .then(dbUserData => {
+                // If no pizza is found, send 404
+                if (!dbUserData) {
+                    res.status(404).json({ message: 'No user found with this id!' });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(400).json(err);
+            });
     },
     // add a thought to a user
     addThought({ params, body }, res) {
         console.log(body);
         Thought.create(body)
             .then(({ _id }) => {
-                return User.findByIdAndUpdate(
-                    { _id: params.userId },
+                return User.findOneAndUpdate(
+                    { username: body.username },
                     // adds the thought to the specific user we want
                     { $push: { thoughts: _id } },
                     // udate existing document
@@ -45,18 +45,31 @@ const thoughtController = {
             })
             .then(dbUserData => {
                 if (!dbUserData) {
-                    res.status(404).json({ message: 'no user found with this id' });
+                    res.status(404).json({ message: 'no thought found with this id' });
                     return;
                 }
                 res.json(dbUserData);
             })
             .catch(err => res.json(err));
     },
+    // update user by id
+    updateThought({ params, body }, res) {
+        // use 'runValidators: true' so that when updating the user it knows to validate any new information
+        Thought.findOneAndUpdate({ _id: params.thoughtId }, body, { new: true, runValidators: true })
+            .then(dbUserData => {
+                if (!dbUserData) {
+                    res.status(404).json({ message: "No thought found with this id!" });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch(err => res.status(400).json(err));
+    },
     // add a reaction
     addReaction({ params, body }, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
-            { $push: { replies: body } },
+            { $push: { reactions: body } },
             { new: true, runValidators: true }
         )
             .then(dbUserData => {

@@ -58,37 +58,20 @@ This is the API backend to the social network. Using this back end, the user can
 
 ## Screenshots
     
-### Main Page
-![The Tech Blog main page](./assets/images/main.png)
+### GET All Users
+![GET All Users](./utils/images/users.png)
 
 
-### Single Post View When Not Signed In
-![Single Post View When Not Signed In](./assets/images/notsignedin.png)
+### GET One User
+![GET One Users](./utils/images/oneuser.png)
 
 
-### Sign Up Page
-![The Tech Blog Signup Page](./assets/images/signup.png)
-
-      
-### Log In Page
-![The Tech Blog Log In Page](./assets/images/login.png)
+### GET All Thoughts & Reactions
+![GET All Thoughts & Reactions](./utils/images/thoughts.png)
 
       
-### Dashboard
-![The Tech Blog Dashboard](./assets/images/dashboard.png)
-
-      
-### Creat New Post
-![Create a new post](./assets/images/newpost.png)
-
-      
-### Edit Post
-![Edit Post](./assets/images/edit.png)
-
-      
-### Single Blog Page
-![Single Blog Page](./assets/images/singleblog.png)
-
+### Friend Count
+![Friend Count](./utils/images/friends.png)
 
 ## Credits
 

@@ -1,6 +1,9 @@
 // import mongoose dependancies
 const { Schema, model } = require('mongoose');
 
+// import the date formatting in utils folder
+const dateFormat = require('../utils/dateFormat');
+
 // User Schema
 const UserSchema = new Schema(
     {
@@ -37,7 +40,8 @@ const UserSchema = new Schema(
         // tell the schema to use virtuals using toJSON property
         toJSON: {
             // use virtuals
-            virtuals: true
+            virtuals: true,
+            getters: true
         },
         id: false // set to "false" because this is a virtual that Mongoose returns, and we don't need it
     }
